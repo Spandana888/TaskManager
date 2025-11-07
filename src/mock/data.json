@@ -1,0 +1,92 @@
+{
+  "users": [
+    {
+      "userId": 1,
+      "email": "spandana.admin@gmail.com",
+      "role": "ROLE_ADMIN",
+      "Title": "Planning React Native project",
+      "description": "Go through the React Native project plan and suggest improvements.",
+      "status": "Completed"
+    },
+    {
+      "userId": 2,
+      "email": "punith.admin@gmail.com",
+      "role": "ROLE_ADMIN",
+      "title": "Fix login bug",
+      "description": "Investigate and fix the issue with authentication on iOS.",
+      "status": "Incomplete"
+    },
+    {
+      "userId": 3,
+      "email": "navya.admin@gmail.com",
+      "role": "ROLE_ADMIN",
+      "title": "Write CI/CD config",
+      "description": "Add GitHub Actions workflow for testing and deployment.",
+      "status": "Incomplete"
+    },
+    {
+      "userId": 4,
+      "email": "chethan@gmail.com",
+      "role": "ROLE_MEMBER",
+      "title": "Yoga class booking",
+      "description": "Book the studio for Saturday morning yoga session.",
+      "status": "Completed"
+    },
+    {
+      "userId": 5,
+      "email": "nithin@gmail.com",
+      "role": "ROLE_MEMBER",
+      "title": "Buying Groceries",
+      "description": "Buy vegetables, fruits, and milk from the supermarket.",
+      "status": "Incomplete"
+    },
+    {
+      "userId": 6,
+      "email": "rachitha@gmail.com",
+      "role": "ROLE_MEMBER",
+      "title": "Prepare expense report",
+      "description": "Complete the monthly expense report and submit to finance team",
+      "status": "Complete"
+    },
+    {
+      "userId": 7,
+      "email": "shalini@gmail.com",
+      "role": "ROLE_MEMBER",
+      "title": "Read React Native docs",
+      "description": "Go through the new navigation documentation for Expo SDK 51.",
+      "status": "Incomplete"
+    },
+    {
+      "userId": 8,
+      "email": "archana@gmail.com",
+      "role": "ROLE_MEMBER",
+      "title": "Design task card UI",
+      "description": "Create a new Task Card component with theming support.",
+      "status": "Incomplete"
+    },
+    {
+      "userId": 9,
+      "email": "darshan@gmail.com",
+      "role": "ROLE_MEMBER",
+      "title": "Write & mail postcard",
+      "description": "Prepare a postcard for christmas and mail it to family and friends.",
+      "status": "Incomplete"
+    },
+    {
+      "userId": 10,
+      "email": "chalana@gmail.com",
+      "role": "ROLE_MEMBER",
+      "title": "Create a guest list",
+      "description": "Create a guestlist for the Chritsmas party and check who is attennding.",
+      "status": "Incomplete"
+    },
+    {
+      "userId": 11,
+      "email": "swathi@gmail.com",
+      "role": "ROLE_MEMBER",
+      "title": "Shopping for christmas",
+      "description": "Do shopping for the christmas gifts & collect the address so that we can mail them",
+      "status": "Incomplete"
+    }
+  ]
+}
