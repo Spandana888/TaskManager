@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AddTask Screen matches the rendered snapshot 1`] = `
+<View>
+  <Text
+    style={
+      {
+        "fontSize": 22,
+        "fontWeight": "bold",
+        "marginBottom": 10,
+      }
+    }
+  >
+    Add Task
+  </Text>
+  <TextInput
+    onChangeText={[Function]}
+    placeholder="title"
+    style={
+      {
+        "borderColor": "#ccc",
+        "borderRadius": 6,
+        "borderWidth": 1,
+        "marginBottom": 10,
+        "padding": 10,
+      }
+    }
+    value=""
+  />
+  <TextInput
+    multiline={true}
+    onChangeText={[Function]}
+    placeholder="description"
+    style={
+      [
+        {
+          "borderColor": "#ccc",
+          "borderRadius": 6,
+          "borderWidth": 1,
+          "marginBottom": 10,
+          "padding": 10,
+        },
+        {
+          "height": 80,
+        },
+      ]
+    }
+    value=""
+  />
+  <View
+    style={
+      [
+        {
+          "overflow": "hidden",
+        },
+        {
+          "borderRadius": 2,
+        },
+        undefined,
+        false,
+      ]
+    }
+    testID="RNE_BUTTON_WRAPPER"
+  >
+    <View
+      accessibilityRole="button"
+      accessibilityState={
+        {
+          "busy": false,
+          "checked": undefined,
+          "disabled": false,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "backgroundColor": "#52c41a",
+            "borderColor": "#2089dc",
+            "borderRadius": 2,
+            "borderWidth": 0,
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "padding": 8,
+            "paddingHorizontal": 10,
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "color": "white",
+              "fontSize": 18,
+              "paddingVertical": 1,
+              "textAlign": "center",
+            }
+          }
+        >
+          Save Task
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

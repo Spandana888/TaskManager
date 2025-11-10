@@ -49,6 +49,7 @@ exports[`SigIn matches the rendered snapshot 1`] = `
         "padding": 10,
       }
     }
+    testID="emailInput"
     value=""
   />
   <button

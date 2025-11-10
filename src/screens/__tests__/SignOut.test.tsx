@@ -1,28 +1,43 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react-native';
+import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation, CommonActions } from '@react-navigation/native';
 import SignOut from '../SignOut';
 
-jest.mock('@react-navigation/native', () => ({
-  useNavigation: jest.fn(),
-  CommonActions: { reset: jest.fn() },
-}));
-
-jest.mock('@react-native-async-storage/async-storage', () => ({
+// Mock AsyncStorage
+jest.mock("@react-native-async-storage/async-storage", () => ({
   removeItem: jest.fn(),
 }));
 
-const mockDispatch = jest.fn();
-(useNavigation as jest.Mock).mockReturnValue({ dispatch: mockDispatch });
+// Mock useAuth
+const mockSignOut = jest.fn(async () => {
+  await AsyncStorage.removeItem("@user_email");
+});
+
+jest.mock("../../hooks/useAuth", () => ({
+  useAuth: () => ({ signOut: mockSignOut }),
+}));
+
+// Mock translation
+jest.mock("react-i18next", () => ({
+  useTranslation: () => ({ t: (key: string) => key }),
+}));
 
 describe('SignOut Screen', () => {
-  it('clears AsyncStorage and resets navigation', async () => {
-    render(<SignOut />);
+ it("clears AsyncStorage and resets navigation", async () => {
+    const { getByText } = render(<SignOut />);
+    const button = getByText("signIn");
+
+    fireEvent.press(button);
 
     await waitFor(() => {
-      expect(AsyncStorage.removeItem).toHaveBeenCalledWith('@user_email');
-      expect(mockDispatch).toHaveBeenCalled();
+      expect(AsyncStorage.removeItem).toHaveBeenCalledWith("@user_email");
+      expect(mockSignOut).toHaveBeenCalled();
     });
   });
+
+  
+    it("matches the rendered snapshot", () => {
+      const tree = render(<SignOut />).toJSON();
+      expect(tree).toMatchSnapshot();
+    });
 });

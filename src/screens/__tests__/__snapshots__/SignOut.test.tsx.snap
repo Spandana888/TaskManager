@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`SignOut Screen matches the rendered snapshot 1`] = `
+<View
+  style={
+    {
+      "flex": 1,
+      "justifyContent": "center",
+      "padding": 200,
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "fontSize": 36,
+        "fontWeight": "bold",
+        "marginBottom": 20,
+        "textAlign": "center",
+      }
+    }
+  >
+    signOutSuccess
+  </Text>
+  <Text
+    style={
+      {
+        "fontSize": 22,
+        "marginBottom": 16,
+        "textAlign": "center",
+      }
+    }
+  >
+    signInWelcomeMessage
+  </Text>
+  <View
+    accessibilityRole="button"
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "borderRadius": 48,
+            "borderWidth": 0,
+          },
+          {
+            "backgroundColor": "#1ea7fd",
+          },
+          {
+            "paddingHorizontal": 16,
+            "paddingVertical": 10,
+          },
+          {
+            "alignItems": "center",
+          },
+          {
+            "backgroundColor": "rgb(82, 196, 26)",
+          },
+          {
+            "borderColor": "black",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "color": "white",
+            },
+            {
+              "fontSize": 12,
+            },
+          ]
+        }
+      >
+        signIn
+      </Text>
+    </View>
+  </View>
+</View>
+`;

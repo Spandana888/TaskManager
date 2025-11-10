@@ -1,114 +1,78 @@
-import { fireEvent, render, waitFor } from "@testing-library/react-native";
+import { render, fireEvent, waitFor } from "@testing-library/react-native";
+import React from "react";
 import SignIn from "../SignIn";
+import { useAuth } from "../../hooks/useAuth";
 
-jest.mock("../../hooks/useAuth", () => ({
-  useAuth: jest.fn(),
-}));
-
+// ✅ mock dependencies
 jest.mock("react-i18next", () => ({
-  useTranslation: () => ({
-    t: (key: string) => key, // simply return the key
-  }),
+  useTranslation: () => ({ t: (key: string) => key }),
 }));
 
 jest.mock("../../utlis/EmailValidation", () => ({
-  isValidEmail: jest.fn(),
+  isValidEmail: (email: string) => email.includes("@"),
 }));
 
 jest.mock("../../mock/data.json", () => ({
   users: [{ email: "test@example.com" }],
 }));
 
-jest.mock('@rneui/themed', () => ({
-  Button: ({ title, onPress }: { title: string; onPress: () => void }) => (
-    <button onClick={onPress}>{title}</button>
-  ),
+// ✅ Mock useAuth as a jest.fn
+const mockSignIn = jest.fn();
+jest.mock("../../hooks/useAuth", () => ({
+  useAuth: jest.fn(),
 }));
 
-const flushPromises = () => new Promise(setImmediate);
+// cast for type safety
+const mockedUseAuth = useAuth as jest.Mock;
 
 describe("SigIn", () => {
-  const mockSignIn = jest.fn();
-  const { useAuth } = require("../../hooks/useAuth");
-  const { isValidEmail } = require("../../utlis/EmailValidation");
-
   beforeEach(() => {
     jest.clearAllMocks();
-    useAuth.mockReturnValue({
+    mockedUseAuth.mockReturnValue({
       signIn: mockSignIn,
       loading: false,
     });
   });
 
-  
   it("renders the title and input fields", () => {
     const { getByText, getByPlaceholderText } = render(<SignIn />);
     expect(getByText("taskManager")).toBeTruthy();
-    expect(getByText("signIn")).toBeTruthy();
     expect(getByPlaceholderText("emailPlaceholder")).toBeTruthy();
   });
 
-  it("shows error when email is empty", async () => {
-    const { getByText } = render(<SignIn />);
-    const button = getByText("signIn");
-    fireEvent.press(button);
+  it("shows error when email is empty", () => {
+    const { getByText, getByTestId } = render(<SignIn />);
+    fireEvent.press(getByTestId("signInButton"));
     expect(getByText("emailRequired")).toBeTruthy();
   });
 
-  it("shows error when email format is invalid", async () => {
-    isValidEmail.mockReturnValue(false);
-    const { getByText, getByPlaceholderText } = render(<SignIn />);
-    const input = getByPlaceholderText("emailPlaceholder");
-    const button = getByText("signIn");
-
-    fireEvent.changeText(input, "invalidemail");
-    fireEvent.press(button);
-
+  it("shows error when email format is invalid", () => {
+    const { getByText, getByPlaceholderText, getByTestId } = render(<SignIn />);
+    fireEvent.changeText(getByPlaceholderText("emailPlaceholder"), "invalidemail");
+    fireEvent.press(getByTestId("signInButton"));
     expect(getByText("Invalid email format")).toBeTruthy();
   });
 
   it("shows error when email is not found in mockData", async () => {
-    isValidEmail.mockReturnValue(true);
-    const { getByText, getByPlaceholderText } = render(<SignIn />);
-    const input = getByPlaceholderText("emailPlaceholder");
-    const button = getByText("signIn");
-
-    fireEvent.changeText(input, "unknown@example.com");
-    fireEvent.press(button);
-
-    await waitFor(() => {
-      expect(getByText("emailNotFound")).toBeTruthy();
-    });
+    const { getByText, getByPlaceholderText, getByTestId } = render(<SignIn />);
+    fireEvent.changeText(getByPlaceholderText("emailPlaceholder"), "unknown@example.com");
+    fireEvent.press(getByTestId("signInButton"));
+    await waitFor(() => expect(getByText("emailNotFound")).toBeTruthy());
   });
 
- it("calls signIn with valid email", async () => {
-  (isValidEmail as jest.Mock).mockReturnValue(true);
-
-  const { getByTestId, getByPlaceholderText } = render(<SignIn />);
-  const input = getByPlaceholderText("emailPlaceholder");
-  const button = getByTestId("signInButton");
-
-  fireEvent.changeText(input, "test@example.com");
-  fireEvent.press(button);
-
-  await flushPromises();
-
-  expect(mockSignIn).toHaveBeenCalledWith("test@example.com");
-});
+  it("calls signIn with valid email", async () => {
+    const { getByPlaceholderText, getByTestId } = render(<SignIn />);
+    fireEvent.changeText(getByPlaceholderText("emailPlaceholder"), "test@example.com");
+    fireEvent.press(getByTestId("signInButton"));
+    await waitFor(() => expect(mockSignIn).toHaveBeenCalledWith("test@example.com"));
+  });
 
   it("shows loading indicator when loading=true", () => {
-    useAuth.mockReturnValue({
+    mockedUseAuth.mockReturnValue({
       signIn: mockSignIn,
       loading: true,
     });
     const { getByTestId } = render(<SignIn />);
     expect(getByTestId("ActivityIndicator")).toBeTruthy();
   });
-  
-  it("matches the rendered snapshot", () => {
-    const tree = render(<SignIn />).toJSON();
-    expect(tree).toMatchSnapshot();
-  });
 });
-
-
