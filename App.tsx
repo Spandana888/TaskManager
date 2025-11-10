@@ -6,12 +6,12 @@ import AppTabs from './src/navigation/AppTabs';
 
 
 export default function App() {
-  return (
-     <AuthProvider>
-            <NavigationContainer>
-                <AppTabs />
-            </NavigationContainer>
-        </AuthProvider>
-  );
+  return(
+    <AuthProvider>
+      <NavigationContainer>
+        <AppTabs />
+      </NavigationContainer>
+    </AuthProvider>
+  )
 }
 

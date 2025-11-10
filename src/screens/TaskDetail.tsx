@@ -63,18 +63,18 @@ export default function TaskDetail() {
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.header}>(t("taskDetails"))</Text>
-        <Text style={styles.label}>{t("title:")}</Text>
-        <Text style={styles.value}>{t("title:")}</Text>
+        <Text style={styles.header}>{t("taskDetails")}</Text>
+        <Text style={styles.label}>{t("title")}</Text>
+        <Text style={styles.value}>{title}</Text>
 
         <Text style={styles.label}>{t("description")}</Text>
-        <Text style={styles.value}>{t("description")}</Text>
+        <Text style={styles.value}>{description}</Text>
 
         <Text style={styles.label}>{t("email")}</Text>
-        <Text style={styles.value}>{t("email")}</Text>
+        <Text style={styles.value}>{email}</Text>
 
-        <Text style={styles.label}>{t("role:")}</Text>
-        <Text style={styles.value}>{role === "ROLE_ADMIN" ? (t("admin")) : (t("member"))}</Text>
+        <Text style={styles.label}>{t("role")}</Text>
+        <Text style={styles.value}>{role === "ROLE_ADMIN" ? t("admin") : (t("member"))}</Text>
 
         <Text style={styles.label}>Status:</Text>
         <Text

@@ -4,7 +4,8 @@ import {
   View,
   StyleSheet,
 } from "react-native";
-import { Button } from '@rneui/themed';
+//import { Button } from '@rneui/themed';
+import { Button } from "../../.rnstorybook/stories/Button"
 import { useTranslation } from "react-i18next";
 
 export default function SignOut(){
@@ -12,12 +13,11 @@ export default function SignOut(){
     const { t } = useTranslation()
     return(
          <View style= {styles.container}>
-           <Text style={styles.title}>(t(signOutSuccess))</Text>
-            <Text style={styles.subTitle}>(t(signInWelcomeMessage))</Text>
+           <Text style={styles.title}>{t("signOutSuccess")}</Text>
+            <Text style={styles.subTitle}>{t("signInWelcomeMessage")}</Text>
              <Button
-                title = {t("signIn")}
+                label = {t("signIn")}
                 onPress={signOut}
-                color={"success"}
               />
          </View>
     )

@@ -24,7 +24,7 @@ export default function SignIn() {
     if (!email) {
       return setError(t("emailRequired"));
     }
-    if (!isValidEmail) {
+    if (!isValidEmail(email)) {
       return setError(t("Invalid email format"));
     }
 
@@ -46,7 +46,7 @@ export default function SignIn() {
     }
   };
 
-  if (loading) return <ActivityIndicator style={{ flex: 1 }} size="large" />;
+  if (loading) return <ActivityIndicator testID="ActivityIndicator" style={{ flex: 1 }} size="large" />;
 
   return (
     <View style={styles.container}>
@@ -58,8 +58,8 @@ export default function SignIn() {
         autoCapitalize="none"
         keyboardType="email-address"
         value={email}
+        testID="emailInput"
         onChangeText={(text) => {
-          console.log("Typing:", text); 
           setEmail(text);
         }}
       />
@@ -70,6 +70,7 @@ export default function SignIn() {
         onPress={handleSignIn}
         disabled={isSubmitting}
         color={"success"}
+        testID="signInButton"
       />
     </View>
   );

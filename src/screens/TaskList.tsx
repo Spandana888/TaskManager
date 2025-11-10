@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import mockData from "../mock/data.json";
 import AddTask from "./AddTask";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { TaskStackParamList } from "../navigation/TaskStack";
 import { Button } from "@rneui/themed";
@@ -31,7 +31,7 @@ type Task = {
 const ITEMS_PER_PAGE = 5;
 
 export default function TaskList() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -59,7 +59,13 @@ export default function TaskList() {
         setLoading(false);
       }
     };
-    fetchTasks();
+
+    // ✅ Use useFocusEffect to refresh when returning to this screen
+    useFocusEffect(
+      useCallback(() => {
+        fetchTasks();
+      }, [])
+    );
   }, []);
 
   if (loading) return <ActivityIndicator style={{ flex: 1 }} size="large" />;
@@ -156,3 +162,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
 });
+function useCallback(arg0: () => void, arg1: never[]): () => undefined | void | (() => void) {
+  throw new Error("Function not implemented.");
+}
+

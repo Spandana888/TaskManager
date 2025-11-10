@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ErrorList matches the rendered snapshot 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flex": 1,
+      "padding": 30,
+    }
+  }
+>
+  <Text>
+    noError
+  </Text>
+</View>
+`;

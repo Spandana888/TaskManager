@@ -1,63 +1,46 @@
+import React from "react";
+import { useAuth } from "../hooks/useAuth";
+import { useTranslation } from "react-i18next";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createStackNavigator } from "@react-navigation/stack";
+
 import SignIn from "../screens/SignIn";
 import TaskStack from "./TaskStack";
 import ErrorList from "../screens/ErrorList";
-import { useAuth } from "../hooks/useAuth";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 import SignOut from "../screens/SignOut";
-import React from "react";
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useTranslation } from "react-i18next";
 
 const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
 export default function AppTabs() {
   const { role } = useAuth();
   const { t } = useTranslation();
+
+  // 👇 If no user is logged in
   if (!role) {
     return (
-      <Drawer.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Drawer.Screen
-          name={t("SignIn")}
-          component={SignIn}
-        />
-      </Drawer.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="SignIn" component={SignIn} />
+      </Stack.Navigator>
     );
   }
 
-  //ROLE_ADMIN
-
+  // 👇 For Admin users
   if (role === "ROLE_ADMIN") {
     return (
-      <Drawer.Navigator
-        screenOptions={{
-          drawerType: "front",
-        }}
-      >
-        <Drawer.Screen name={t("tasks")} component={TaskStack}  />
-        <Drawer.Screen name={t("errors")} component={ErrorList} options={{}}/>
-        <Drawer.Screen name={t("signOut")} component={SignOut} options={{
-          headerShown: false,
-        }}/>
+      <Drawer.Navigator screenOptions={{ headerShown: false }}>
+        <Drawer.Screen name={t("tasks")} component={TaskStack} />
+        <Drawer.Screen name={t("errors")} component={ErrorList} />
+        <Drawer.Screen name={t("signOut")} component={SignOut} />
       </Drawer.Navigator>
     );
   }
 
-  //ROLE_MEMBER
+  // 👇 For Member users
   return (
-    <Drawer.Navigator
-      screenOptions={{
-        drawerType: "front",
-      }}
-    >
-      <Drawer.Screen name={t("tasks")} component={TaskStack}/>
-      <Drawer.Screen name={t("signOut")} component={SignOut} options={{
-          headerShown: false,
-        }}/>
+    <Drawer.Navigator screenOptions={{ headerShown: false }}>
+      <Drawer.Screen name={t("taskList")} component={TaskStack} />
+      <Drawer.Screen name={t("signOut")} component={SignOut} />
     </Drawer.Navigator>
   );
 }

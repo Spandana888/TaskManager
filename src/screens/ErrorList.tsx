@@ -1,18 +1,20 @@
-import React, { Component } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Text, StyleSheet, View } from 'react-native'
+import React, { Component } from "react";
+import { withTranslation } from "react-i18next";
+import { Text, StyleSheet, View } from "react-native";
 
-export default class ErrorList extends Component {
+class ErrorList extends Component<any> {
   render() {
-    const { t } = useTranslation()
+    const { t } = this.props;
     return (
       <View style={styles.container}>
-        <Text> {t("noError")} </Text>
+        <Text>{t("noError")}</Text>
       </View>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: "center", padding: 30}
-})
+  container: { flex: 1, alignItems: "center", padding: 30 },
+});
+
+export default withTranslation()(ErrorList);

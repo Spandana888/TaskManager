@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 type Role = "ROLE_MEMBER" | "ROLE_ADMIN" | null;
 
@@ -19,6 +19,10 @@ const AuthContext = createContext<AuthContextType>({
     signIn: async() => { },
     signOut: async () => { },
 });
+
+type AuthProviderProps = {
+  children: ReactNode;  // ✅ define children type
+};
 
 const STORAGE_ROLE_KEY = '@user_role';
 const STORAGE_EMAIL_KEY = '@user_email';
