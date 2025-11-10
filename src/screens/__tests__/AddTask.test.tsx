@@ -27,7 +27,7 @@ jest.mock("react-native-uuid", () => ({
 
 jest.mock("react-i18next", () => ({
   useTranslation: () => ({
-    t: (key: string) => key, // simple translation mock
+    t: (key: string) => key, 
   }),
 }));
 

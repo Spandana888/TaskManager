@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -37,40 +37,41 @@ export default function TaskList() {
   const [page, setPage] = useState(1);
   const navigation = useNavigation<TaskListNavProp>();
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const staticTasks: Task[] = mockData.users.map((task: any) => ({
-          userId: task.userId,
-          email: task.email,
-          role: task.role,
-          title: task.title || task.Title,
-          description: task.description,
-          initialStatus:
-            task.status || (task.completed ? "Completed" : "Incomplete"),
-        }));
-        const stored = await AsyncStorage.getItem("@tasks");
-        const storedTasks = stored ? JSON.parse(stored) : [];
-        const allTasks = [...staticTasks, ...storedTasks];
-        setTasks(allTasks);
-      } catch (err) {
-        console.error("Error loading tasks:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    // ✅ Use useFocusEffect to refresh when returning to this screen
-    useFocusEffect(
-      useCallback(() => {
-        fetchTasks();
-      }, [])
-    );
+  const fetchTasks = useCallback(async () => {
+    try {
+      const staticTasks: Task[] = mockData.users.map((task: any) => ({
+        userId: task.userId,
+        email: task.email,
+        role: task.role,
+        title: task.title || task.Title,
+        description: task.description,
+        initialStatus:
+          task.status || (task.completed ? "Completed" : "Incomplete"),
+      }));
+      const stored = await AsyncStorage.getItem("@tasks");
+      const storedTasks = stored ? JSON.parse(stored) : [];
+      const allTasks = [...staticTasks, ...storedTasks];
+      setTasks(allTasks);
+    } catch (err) {
+      console.error("Error loading tasks:", err);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  if (loading) return <ActivityIndicator style={{ flex: 1 }} size="large" />;
+  // ✅ Use useFocusEffect (not nested!)
+  useFocusEffect(
+    useCallback(() => {
+      fetchTasks();
+    }, [fetchTasks])
+  );
 
-  // Pagination
+  // ✅ Optional: initial load too (only once)
+  useEffect(() => {
+    fetchTasks();
+  }, [fetchTasks]);
+
+  if (loading) return <ActivityIndicator style={{ flex: 1 }} size="large" />;
 
   const totalPages = Math.ceil(tasks.length / ITEMS_PER_PAGE);
   const startIndex = (page - 1) * ITEMS_PER_PAGE;
@@ -78,6 +79,7 @@ export default function TaskList() {
 
   const nextPage = () => setPage((prev) => Math.min(prev + 1, totalPages));
   const prevPage = () => setPage((prev) => Math.max(prev - 1, 1));
+
   return (
     <View style={styles.container}>
       <AddTask />
@@ -104,6 +106,7 @@ export default function TaskList() {
           )}
         />
       </View>
+
       <View style={styles.paginationContainer}>
         <Button
           title={t("previous")}
@@ -162,7 +165,3 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
 });
-function useCallback(arg0: () => void, arg1: never[]): () => undefined | void | (() => void) {
-  throw new Error("Function not implemented.");
-}
-

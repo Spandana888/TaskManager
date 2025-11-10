@@ -5,7 +5,7 @@ import TaskDetail from '../screens/TaskDetail';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 export type TaskStackParamList = {
-  TaskList: undefined;
+  Tasks: undefined;
   TaskDetails: {
     userId: number;
     email: string;
