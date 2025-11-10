@@ -16,13 +16,11 @@ jest.mock("../../mock/data.json", () => ({
   users: [{ email: "test@example.com" }],
 }));
 
-// ✅ Mock useAuth as a jest.fn
 const mockSignIn = jest.fn();
 jest.mock("../../hooks/useAuth", () => ({
   useAuth: jest.fn(),
 }));
 
-// cast for type safety
 const mockedUseAuth = useAuth as jest.Mock;
 
 describe("SigIn", () => {

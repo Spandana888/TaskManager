@@ -4,7 +4,6 @@ import {
   View,
   StyleSheet,
 } from "react-native";
-//import { Button } from '@rneui/themed';
 import { Button } from "../../.rnstorybook/stories/Button"
 import { useTranslation } from "react-i18next";
 

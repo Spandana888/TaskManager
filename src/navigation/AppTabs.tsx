@@ -28,7 +28,7 @@ export default function AppTabs() {
   // 👇 For Admin users
   if (role === "ROLE_ADMIN") {
     return (
-      <Drawer.Navigator screenOptions={{ headerShown: false }}>
+      <Drawer.Navigator screenOptions={{ headerShown: true }}>
         <Drawer.Screen name={t("tasks")} component={TaskStack} />
         <Drawer.Screen name={t("errors")} component={ErrorList} />
         <Drawer.Screen name={t("signOut")} component={SignOut} />
@@ -38,7 +38,7 @@ export default function AppTabs() {
 
   // 👇 For Member users
   return (
-    <Drawer.Navigator screenOptions={{ headerShown: false }}>
+    <Drawer.Navigator screenOptions={{ headerShown: true }}>
       <Drawer.Screen name={t("taskList")} component={TaskStack} />
       <Drawer.Screen name={t("signOut")} component={SignOut} />
     </Drawer.Navigator>

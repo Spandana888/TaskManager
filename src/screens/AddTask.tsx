@@ -18,7 +18,7 @@ type FormValues = {
 export default function AddTask() {
   const { t } = useTranslation()
   const navigation = useNavigation();
-  const { role } = useAuth();
+  const { role, email } = useAuth();
   const {
     control,        
     handleSubmit,
@@ -38,7 +38,7 @@ export default function AddTask() {
       title: data.title,
       description: data.description,
       status: (t("Incomplete")),
-      email: "newuser@gmail.com", // need to work on this
+      email: email || "unknown",
       role: role === "ROLE_ADMIN" ? (t("admin")) : (t("member"))
     }
      const updated = [...existingTasks, newTask];
@@ -92,7 +92,6 @@ export default function AddTask() {
 }
 
 const styles = StyleSheet.create({
-  // container: { flex: 1 },
   header: { fontSize: 22, fontWeight: "bold", marginBottom: 10 },
   input: {
     borderWidth: 1,
