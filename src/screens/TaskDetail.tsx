@@ -46,19 +46,22 @@ export default function TaskDetail() {
     }
   }
 
-  const handleDelete = async () => {
-    try {
-      const stored = await AsyncStorage.getItem('@tasks');
-      let tasks = stored ? JSON.parse(stored) : [];
-      const updatedTasks = tasks.filter(
-        (t: any) => !(t.userId === userId && t.title === title)
-      );
-      navigation.goBack()
-      await AsyncStorage.setItem('@tasks', JSON.stringify(updatedTasks));
-    } catch (err) {
-      console.error((t('errorDeletingTasks:')), err);
-    }
-  };
+const handleDelete = async () => {
+  try {
+    const stored = await AsyncStorage.getItem("@tasks");
+    if (!stored) return;
+
+    const tasks = JSON.parse(stored);
+    const updatedTasks = tasks.filter(
+      (task: any) =>
+        String(task.userId) !== String(userId) || task.title.trim() !== title.trim()
+    );
+    await AsyncStorage.setItem("@tasks", JSON.stringify(updatedTasks));
+    navigation.goBack();
+  } catch (err) {
+    console.error(t("errorDeletingTasks:"), err);
+  }
+};
 
   return (
     <>

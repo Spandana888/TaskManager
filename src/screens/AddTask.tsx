@@ -56,7 +56,7 @@ export default function AddTask() {
       <Controller
         control={control}
         name="title"
-        rules={{ required: (t("titleRequired")) }}
+        rules={{ required: { value: true, message: t("titleRequired") } }}
         render={({ field: { onChange, value } }) => (
           <TextInput
             style={styles.input}

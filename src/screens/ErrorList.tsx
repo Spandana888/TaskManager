@@ -7,7 +7,7 @@ class ErrorList extends Component<any> {
     const { t } = this.props;
     return (
       <View style={styles.container}>
-        <Text>{t("noError")}</Text>
+        ListEmptyComponent={<Text>No errors available</Text>}
       </View>
     );
   }
