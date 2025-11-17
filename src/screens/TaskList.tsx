@@ -66,11 +66,6 @@ export default function TaskList() {
     }, [fetchTasks])
   );
 
-  // ✅ Optional: initial load too (only once)
-  useEffect(() => {
-    fetchTasks();
-  }, [fetchTasks]);
-
   if (loading) return <ActivityIndicator style={{ flex: 1 }} size="large" />;
 
   const totalPages = Math.ceil(tasks.length / ITEMS_PER_PAGE);
